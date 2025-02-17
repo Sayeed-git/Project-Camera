@@ -18,10 +18,31 @@ async function startCamera() {
         // Enable the start recording button
         document.getElementById('startBtn').disabled = false;
     } catch (err) {
-        alert("Please allow camera access.");
+        showError("Unable to access camera. Please check permissions.");
     }
 }
 startCamera();
+
+// Display error message if camera access fails
+function showError(message) {
+    const errorMessage = document.createElement('div');
+    errorMessage.textContent = message;
+    errorMessage.style.position = 'absolute';
+    errorMessage.style.top = '50%';
+    errorMessage.style.left = '50%';
+    errorMessage.style.transform = 'translate(-50%, -50%)';
+    errorMessage.style.padding = '20px';
+    errorMessage.style.backgroundColor = '#f44336';
+    errorMessage.style.color = '#fff';
+    errorMessage.style.fontSize = '18px';
+    errorMessage.style.borderRadius = '5px';
+    errorMessage.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    document.body.appendChild(errorMessage);
+    
+    setTimeout(() => {
+        errorMessage.remove();
+    }, 5000);
+}
 
 // Variables for recording
 let mediaRecorder;
